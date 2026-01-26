@@ -1,0 +1,74 @@
+seed: 1
+total_num_scenes: 36 
+num_processes: 1 
+num_eval_episodes: 1000
+cuda: true
+sim_gpu_id: 1
+log_interval: 10
+save_interval: 1
+dump_location: "./outputs/experiments/"
+experiment_id: "experiment_1"
+save_periodic: 50000
+visualize: 1
+environment: "habitat"
+env_frame_width: 480
+env_frame_height: 640
+frame_width: 120
+frame_height: 160
+max_episode_length: 1000
+task_config: "tasks/instance_imagenav.yaml"
+text_goal_dataset: "data/datasets/textnav/val/val_text.json.gz"
+split: "val" # 数据集分割（Split）为 "val"
+camera_height: 0.88 # 相机高度（Camera Height）为 0.88 米
+hfov: 79  #“水平视场角（Horizontal Field of View）”为 79 度
+turn_angle: 30   #“转弯角度（Turn Angle）”为 30 度
+min_depth: 0.00 #“最小深度（Minimum Depth）”为 0.00
+max_depth: 30.0 #“最大深度（Maximum Depth）”为 30.0
+success_dist: 1.0  #“成功距离（Success Distance）”为 1.0
+floor_thr: 50   #“地板阈值（Floor Threshold）”为 50
+min_d: 1.5 #“最小距离（Minimum Distance）”为 1.5
+max_d: 100.0  #“最大距离（Maximum Distance）”为 100.0
+version: "v3" #“版本（Version）”为 v3
+lr: 2.5e-5 # 学习率（Learning Rate）被设置为 2.5e-5
+global_hidden_size: 256 # 全局隐藏层大小（Global Hidden Size）被设置为 256
+eps: 1.0e-5   # 优化器的 epsilon 值（Optimizer Epsilon）被设置为 1.0e-5
+alpha: 0.99 # 优化器的 alpha 值（Optimizer Alpha）被设置为 0.99
+gamma: 0.99 # 折扣因子（Discount Factor）被设置为 0.99
+use_gae: false # 是否使用广义优势估计（Generalized Advantage Estimation）被设置为 false
+tau: 0.95 # 优势估计的 tau 值（Advantage Estimation Tau）被设置为 0.95
+entropy_coef: 0.001   # 熵系数（Entropy Coefficient）被设置为 0.001
+value_loss_coef: 0.5 # 值损失系数（Value Loss Coefficient）被设置为 0.5
+max_grad_norm: 0.5 # 最大梯度范数（Maximum Gradient Norm）被设置为 0.5
+num_global_steps: 20 # 全局步骤数（Number of Global Steps）被设置为 20
+ppo_epoch: 4 # PPO 迭代次数（PPO Epochs）被设置为 4
+num_mini_batch: 1 # 小批量数量（Number of Mini-Batches）被设置为 1
+clip_param: 0.2 # 剪切参数（Clipping Parameter）被设置为 0.2
+use_recurrent_global: 0 # 是否使用递归全局网络（Use Recurrent Global Network）被设置为 0
+num_local_steps: 40 # 本地步骤数（Number of Local Steps）被设置为 40
+reward_coeff: 0.1   # 奖励系数（Reward Coefficient）被设置为 0.1
+intrinsic_rew_coeff: 0.02 # 内在奖励系数（Intrinsic Reward Coefficient）被设置为 0.02
+sem_pred_prob_thr: 0.50 # 语义预测概率阈值（Semantic Prediction Probability Threshold）被设置为 0.50
+global_downscaling: 3 ##全局下采样因子
+vision_range: 100 ##局部视野范围是 100 个地图单元
+du_scale: 1 #下采样因子（downscaling factor） 特征和地图尺寸不变
+cat_pred_threshold: 5.0 #类别预测阈值（Categorical Prediction Threshold） 被设置为 5.0
+map_pred_threshold: 1.0 #地图预测阈值（Map Prediction Threshold） 被设置为 1.0
+exp_pred_threshold: 1.0 #经验预测阈值（Experience Prediction Threshold） 被设置为 1.0
+collision_threshold: 0.20 #碰撞阈值（Collision Threshold） 被设置为 0.20
+kernel_size: 91 #卷积核大小（Kernel Size） 被设置为 91
+low_dense: 8 #低密度（Low Density） 被设置为 8
+succeed_match_points: 200 #成功匹配点数（Number of Successful Match Points） 被设置为 200
+big_enough_f: 0.16666666666666666 #足够大的比例（Big Enough Fraction） 被设置为 0.16666666666666666
+big_enough_thresh: 4 #足够大的阈值（Big Enough Threshold） 被设置为 4
+turn_angle: 15 #转弯角度（Turn Angle） 被设置为 15
+
+# map
+num_sem_categories: 16
+map_size_cm: 3600
+map_resolution: 5
+
+# LLM and VLM
+llm_model: "llama3.2-vision"
+vlm_model: "llama3.2-vision"
+api_key: "ollama"
+base_url: "http://localhost:11434/v1/"

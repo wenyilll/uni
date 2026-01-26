@@ -1,0 +1,6 @@
+outputs/
+third_party/
+assets/
+data/
+
+__pycache__/

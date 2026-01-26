@@ -1,0 +1,15 @@
+.vscode
+.history
+data
+output
+outputs
+pretrained_models
+tmp
+third_party/
+**/__pycache__/**
+**/*.pyc
+**/*.pyo
+**/*.pyd
+**/.eggs/**
+**/*.egg
+**/*.egg-info

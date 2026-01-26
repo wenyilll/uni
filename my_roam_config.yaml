@@ -1,0 +1,35 @@
+# final_roam_config.yaml (完全自包含的最终版本)
+
+habitat:
+  ENVIRONMENT:
+    # 定义每个回合的最大步数，对于漫游来说可以设得很大
+    MAX_EPISODE_STEPS: 1000 
+
+  SIMULATOR:
+    TYPE: Habitat-Sim-v0
+    # 直接指定您想加载的场景
+    SCENE: "/home/ps/zz/Unigoal/UniGoal/data/scene_datasets/hm3d_v0.2/val/00800-TEEsavR23oF/TEEsavR23oF.basis.glb"
+    AGENT_0:
+      SENSORS: ['RGB_SENSOR', 'DEPTH_SENSOR']
+      HEIGHT: 0.88
+      HFOV: 79
+
+  # 我们需要一个最基础的TASK来让环境初始化，但我们不定义任何会引发错误的传感器
+  TASK:
+    TYPE: Nav-v0
+    # 显式定义我们的交互脚本需要用到的动作
+    ACTIONS:
+      STOP:
+        TYPE: StopAction
+      MOVE_FORWARD:
+        TYPE: MoveForwardAction
+      TURN_LEFT:
+        TYPE: TurnLeftAction
+      TURN_RIGHT:
+        TYPE: TurnRightAction
+
+  # 提供一个虚假的、不会被使用的DATASET部分，以满足配置系统的检查
+  DATASET:
+    TYPE: PointNav-v1
+    SPLIT: val
+    DATA_PATH: "data/datasets/pointnav/gibson/v1/{split}/{split}.json.gz"
