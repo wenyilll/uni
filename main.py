@@ -59,7 +59,7 @@ def get_config():
 def main():
     args = get_config()
 
-    os.makedirs(args.log_dir, exist_ok=True)
+    os.makedirs(args.log_dir, exist_ok=True)#ads
     os.makedirs(args.visualization_dir, exist_ok=True)
 
     logging.basicConfig(

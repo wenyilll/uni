@@ -79,7 +79,7 @@ class GroupNode():
             distance = np.linalg.norm(np.array(node.center) - np.array(self.center))
             if distance < min_distance:
                 min_distance = distance
-                self.center_node = nodez
+                self.center_node = node
             self.edges.update(node.edges)
         self.caption = self.graph_to_text(self.nodes, self.edges)
 
