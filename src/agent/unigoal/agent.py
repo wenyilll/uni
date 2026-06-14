@@ -94,6 +94,8 @@ class UniGoal_Agent():
             self.instance_imagegoal = self.envs.instance_imagegoal
         elif self.args.goal_type == 'text':
             self.text_goal = self.envs.text_goal
+        elif self.args.goal_type == 'object':
+            self.text_goal = self.envs.text_goal
         idx = self.get_goal_cat_id()
         if idx is not None:
             self.envs.set_goal_cat_id(idx)
@@ -283,8 +285,8 @@ class UniGoal_Agent():
                     planner_inputs['goal'] = goal_map
                     self.temp_goal = None
                 else:
-                    if (self.args.goal_type == 'ins-image' and goal_dis < 50) or (self.args.goal_type == 'text' and goal_dis < 15):
-                        if (self.args.goal_type == 'ins-image' and match_points > 90) or self.args.goal_type == 'text':
+                    if (self.args.goal_type == 'ins-image' and goal_dis < 50) or (self.args.goal_type in ('text', 'object') and goal_dis < 15):
+                        if (self.args.goal_type == 'ins-image' and match_points > 90) or self.args.goal_type in ('text', 'object'):
                             planner_inputs['found_goal'] = 1
                             global_goal = np.zeros((self.global_width, self.global_height))
                             global_goal[gx1:gx2, gy1:gy2] = goal_map
@@ -323,7 +325,7 @@ class UniGoal_Agent():
                             if self.args.goal_type == 'ins-image':
                                 index = self.local_feature_match_lightglue()
                                 match_points = index.shape[0]
-                            if (self.args.goal_type == 'ins-image' and match_points < 80) or self.args.goal_type == 'text':
+                            if (self.args.goal_type == 'ins-image' and match_points < 80) or self.args.goal_type in ('text', 'object'):
                                 planner_inputs['goal'] = planner_inputs['exp_goal']
                                 selem = skimage.morphology.disk(3)
                                 new_goal_map = skimage.morphology.dilation(new_goal_map, selem)
@@ -705,6 +707,8 @@ class UniGoal_Agent():
                 except:
                     pass
             return 0
+        elif self.args.goal_type == 'object':
+            return self.envs.gt_goal_idx
 
     def visualize(self, inputs):
         args = self.args
@@ -803,6 +807,9 @@ class UniGoal_Agent():
             else:
                 text_goal = self.text_goal
             text_goal = line_list(text_goal)[:12]
+            add_text_list(vis_image[50:265, 25:240], text_goal)
+        elif self.args.goal_type == 'object':
+            text_goal = line_list(self.text_goal)[:12]
             add_text_list(vis_image[50:265, 25:240], text_goal)
         vis_image[50:530, 650:1130] = sem_map_vis
         if self.args.environment == 'habitat':

@@ -52,7 +52,13 @@ class InstanceImageGoal_Env:
 
         self.goal_name = goal_name
         self.gt_goal_idx = self.name2index[goal_name]
-        self.goal_object_id = int(self._env.current_episode.goal_object_id)
+        episode = self._env.current_episode
+        if hasattr(episode, 'goal_object_id') and episode.goal_object_id is not None:
+            self.goal_object_id = int(episode.goal_object_id)
+        elif getattr(episode, 'goals', None):
+            self.goal_object_id = int(episode.goals[0].object_id)
+        else:
+            self.goal_object_id = None
 
     def reset(self):
         """Resets the environment to a new episode.
@@ -108,6 +114,12 @@ class InstanceImageGoal_Env:
                 self.info['text_goal'] = text_goal
             else:
                 self.info['text_goal'] = self.text_goal_dataset['attribute_data'][self._env.current_episode.goal_key]
+            self.text_goal = self.info['text_goal']
+        if self.args.goal_type == 'object':
+            if self.args.goal:
+                self.info['text_goal'] = self.args.goal
+            else:
+                self.info['text_goal'] = self.goal_name
             self.text_goal = self.info['text_goal']
 
         print(f"episode:{self.episode_no}, cat_id:{self.gt_goal_idx}, cat_name:{self.goal_name}")
